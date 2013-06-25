@@ -8,6 +8,10 @@ class RecordLabel
   def initialize
     @roster = []
   end
+
+  def sign(artist)
+    @roster.push artist
+  end
 end
 
 class Hoe
@@ -43,7 +47,7 @@ ludacris = {
 }
 
 def_jam = RecordLabel.new
-def_jam.roster << ludacris
+# def_jam.roster << ludacris
 
 # Programmatically solve the following questions
 # Write a line of code for each
@@ -51,18 +55,23 @@ def_jam.roster << ludacris
 # Part 1
 
 # How many occupations does Ludacris have?
-ludacris[:occupations].count
+puts ludacris[:occupations].count
 # What number job is 'Rapper'?
+puts ludacris[:occupations].index("Rapper") + 1
 # How many area codes does Ludacris have?
+puts ludacris[:hoes].keys.count
 # How many hoes does Ludacris have?
+puts ludacris[:hoes].values.flatten.count
 # How many hoes does Ludacris have in 617?
+puts ludacris[:hoes]['617'].count
 # List all Ludacris's hoes names
-
+ludacris[:hoes].values.flatten.each { |hoe| puts hoe.name }
 
 # Part 2
 # Write a method for RecordLabel that "signs" an artist to a roster
 # "Sign" Ludacris to Def Jam
 # I should be able to write def_jam.sign ludachris
+def_jam.sign(ludacris)
 
 # Rewrite the code so that Ludacris is an artist object, not a hash
 # Create a method so that adds a hoe to an area code
@@ -71,4 +80,4 @@ ludacris[:occupations].count
 # Edit the Hoe's initialization method so that they get a randomly assigned area code
 # move the class code into separate files for RecordLable, Hoe and Artist
 
-binding.pry
+# binding.pry
