@@ -22,6 +22,12 @@ class Hoe
   end
 end
 
+class Artist
+  attr_accessor :name
+  def initialize(name)
+    @name = name
+  end
+
 h1 = Hoe.new
 h2 = Hoe.new
 h3 = Hoe.new
