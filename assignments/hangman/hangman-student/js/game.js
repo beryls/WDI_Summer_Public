@@ -3,12 +3,18 @@ var word = {
   wordList: ['ruby', 'rails', 'javascript', 'array', 'hash', 'underscore', 'sinatra', 'model', 'controller', 'view', 'devise', 'authentication', 'capybara', 'jasmine', 'cache', 'sublime', 'terminal', 'system', 'twitter', 'facebook', 'function', 'google', 'amazon', 'development', 'data', 'design', 'inheritance', 'prototype', 'gist', 'github', 'agile', 'fizzbuzz', 'route', 'gem', 'deployment', 'database'],
 
   // Selects a random word from the word list sets the secret word
-  setSecretWord: function(){},
+  setSecretWord: function() {
+    this.secretWord = this.wordList[_.random(0, this.wordList.length - 1)];
+  },
 
   // Takes an array of letters as input and returns an array of two items:
   // 1) A string with the parts of the secret word that have been guessed correctly and underscore for the parts that haven't
   // 2) An array of all the guessed letters that were not in the secret word
-  checkLetters: function(guessedLetters){}
+  checkLetters: function(guessedLetters){
+    var correctLetters = _.intersection(this.secretWord, guessedLetters);
+    var wrongLetters = _.difference(guessedLetters, correctLetters);
+    debugger;
+  }
 };
 
 var player = {
@@ -22,7 +28,9 @@ var player = {
   checkWin: function(wordString){},
 
   // Check if the player has lost and end the game if so
-  checkLose: function(wrongLetters){}
+  checkLose: function(wrongLetters){
+    return wrongLetters.length >= MAX_GUESSES;
+  }
 };
 
 var game = {
@@ -37,6 +45,11 @@ var game = {
 };
 
 window.onload = function(){
+  word.setSecretWord()
+  console.log(word.secretWord);
+  wrongLetters = word.checkLetters("aeiou");
+  // wrongLettersArray = word.checkLetters(['a', 'e', 'i', 'o', 'u', 'y']);
+  console.log(word.correct_letters);
   // Start a new game
   // Add event listener to the letter input field to grab letters that are guessed
   // Add event listener to the reset button to reset the game when clicked
