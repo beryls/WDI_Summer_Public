@@ -1,12 +1,16 @@
 var word = {
-  secretWord: "",
+  // This is an attribute of the object word.
+  secretWord: "model",
   wordList: ['ruby', 'rails', 'javascript', 'array', 'hash', 'underscore', 'sinatra', 'model', 'controller', 'view', 'devise', 'authentication', 'capybara', 'jasmine', 'cache', 'sublime', 'terminal', 'system', 'twitter', 'facebook', 'function', 'google', 'amazon', 'development', 'data', 'design', 'inheritance', 'prototype', 'gist', 'github', 'agile', 'fizzbuzz', 'route', 'gem', 'deployment', 'database'],
 
+  // START HERE: Step 1
   // Selects a random word from the word list sets the secret word
   setSecretWord: function() {
     this.secretWord = this.wordList[_.random(0, this.wordList.length - 1)];
   },
 
+  // This feels pretty hard- what can we do to make it easier, or fake it for the moment?
+  // How do we deal with multiple, multiple occurrances of letters (ie. google)?
   // Takes an array of letters as input and returns an array of two items:
   // 1) A string with the parts of the secret word that have been guessed correctly and underscore for the parts that haven't
   // 2) An array of all the guessed letters that were not in the secret word
