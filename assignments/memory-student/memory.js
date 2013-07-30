@@ -22,17 +22,26 @@ var lastId = '',
 
 //Code In Here gets executed once code is ready. ie hovering, clicking events//
 $(function() {
-
+  letters = _.shuffle(lettersMedium);
+  startGame();
+  cardClick();
 });
 
 // Initializes the game and creates the board
 function startGame() {
-
+  console.log(letters);
+  $.each(letters, function(index){
+    var div = $('<div/>').addClass('square');
+    div.attr("id", index);
+    div.appendTo('#game');
+  });
 }
 
 // Flips a card and checks for a match
 function cardClick() {
-
+  $('.square').click(function() {
+    console.log(div);
+  });
 }
 
 //Add hoverclass to cards.
