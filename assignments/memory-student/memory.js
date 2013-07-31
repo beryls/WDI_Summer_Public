@@ -42,7 +42,10 @@ $(function() {
     cardClick();
     hovering();
     startTime();
-    updateTime();
+    // makes sure updateTime is only called once
+    if (timerId === 0){
+      updateTime();
+    }
   });
 });
 
@@ -116,7 +119,8 @@ function startTime() {
 
 //Increment the timer and display the new time
 function updateTime() {
-  // if not all squares have been matched, timer is updated once a second
+  // if not all squares have been matched and updateTime is not already in effect, timer is increased once a second
+  timerId = 1;
   setInterval(function(){
     if (matchedSquares < letters.length) {
       time++;
