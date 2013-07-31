@@ -28,6 +28,8 @@ $(function() {
   startGame();
   cardClick();
   hovering();
+  startTime();
+  updateTime();
 });
 
 // Initializes the game and creates the board
@@ -48,26 +50,26 @@ function startGame() {
 function cardClick() {
   // occurs when div with square class is clicked
   $('.square').click(function() {
-    // rest of function only runs if this square is not the one previously clicked
-    if (this.id !== lastId){
-      // takes div id, finds corresponding letter in letters array, adds letter as text of div
+    // rest of function only runs if this square is not the one previously clicked and has not been matched
+    if (this.id !== lastId && $(this).hasClass('found') === false){
+      // takes div id, finds corresponding letter in letters array, adds a span with letter as text into div
       var index = parseInt(this.id);
-      $(this).text(letters[index]);
+      $(this).html("<span>" + letters[index] + "</span>");
       // if lastId is blank, add clicked div's info to lastId and lastCard
       if (lastId === '') {
-        lastCard = $(this).text();
+        lastCard = $(this).html();
         lastId = this.id;
       }
-      // if div's text matches that of the last square clicked, found class is added to both squares
+      // if div's span matches that of the last square clicked, found class is added to both squares
       else {
-        if ($(this).text() === lastCard) {
+        if ($(this).html() === lastCard) {
           $(this).addClass('found');
           $('#' + lastId).addClass('found');
         }
         // if lastId is not blank, both squares should be made blank after a delay
         else {
-          setTimeout(function(){$('#' + lastId).text("")}, 1000);
-          setTimeout(function(){$(this).text("")}, 1000);
+            $('#' + lastId).find('span').fadeOut(1500);
+            $(this).find('span').fadeOut(1500);
         }
         // lastCard and lastId should be made blank after any two selections, right or wrong
         lastCard = '';
@@ -89,10 +91,13 @@ function hovering() {
 
 //Start the timer
 function startTime() {
-
+  $('#timer').html("<span>Seconds passed: " + time + "<span>");
 }
 
 //Increment the timer and display the new time
 function updateTime() {
-
+  setInterval(function(){
+    time++;
+    $('#timer').html("<span>Seconds passed: " + time + "<span>");
+  }, 1000);
 }
