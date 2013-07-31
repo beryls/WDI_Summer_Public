@@ -20,22 +20,40 @@ var letters;
 var lastId = '',
     lastCard = '';
 
+// counts number of squares matched
+var matchedSquares = 0;
+
 //Code In Here gets executed once code is ready. ie hovering, clicking events//
 $(function() {
   // using medium size array for now
   // will need to select array with click functions later
-  letters = _.shuffle(lettersMedium);
-  startGame();
-  cardClick();
-  hovering();
-  startTime();
-  updateTime();
+  $('input').click(function(){
+    var size = this.value;
+    if (size === "Small") {
+      letters = _.shuffle(lettersSmall);
+    }
+    else if (size === "Medium") {
+      letters = _.shuffle(lettersMedium);
+    }
+    else {
+      letters = _.shuffle(lettersLarge);
+    }
+    startGame();
+    cardClick();
+    hovering();
+    startTime();
+    updateTime();
+  });
 });
 
 // Initializes the game and creates the board
 function startGame() {
   // prints letters array to console - remove later
   console.log(letters);
+  // resets count of matched squares at beginning of each game
+  // resets game board
+  matchedSquares = 0;
+  $('#game').children().remove();
   // creates div for each letter, adds square class to each
   // adds unique id to each div to match a letter's index
   // adds div into game div
@@ -65,11 +83,12 @@ function cardClick() {
         if ($(this).html() === lastCard) {
           $(this).addClass('found');
           $('#' + lastId).addClass('found');
+          matchedSquares += 2;
         }
         // if lastId is not blank, both squares should be made blank after a delay
         else {
-            $('#' + lastId).find('span').fadeOut(1500);
-            $(this).find('span').fadeOut(1500);
+            $('#' + lastId).find('span').fadeOut(1000);
+            $(this).find('span').fadeOut(1000);
         }
         // lastCard and lastId should be made blank after any two selections, right or wrong
         lastCard = '';
@@ -91,13 +110,17 @@ function hovering() {
 
 //Start the timer
 function startTime() {
+  time = 0;
   $('#timer').html("<span>Seconds passed: " + time + "<span>");
 }
 
 //Increment the timer and display the new time
 function updateTime() {
+  // if not all squares have been matched, timer is updated once a second
   setInterval(function(){
-    time++;
-    $('#timer').html("<span>Seconds passed: " + time + "<span>");
+    if (matchedSquares < letters.length) {
+      time++;
+      $('#timer').html("<span>Seconds passed: " + time + "<span>");
+    }
   }, 1000);
 }
