@@ -12,4 +12,45 @@ class TasksController < ApplicationController
 
 	# STEP 25: Find the task by id and set it's `completed` property to `true` in the `TasksController#complete` action
 	# STEP 26: Make the `TasksController#complete` `respond_to` respond to a javascript request
+	def index
+		tasks = Task.all
+		respond_to do |format|
+      format.html
+      format.json { render json: tasks.to_json }
+    end
+	end
+
+	def create
+		task = Task.create(name: params[:name])
+		respond_to do |format|
+      format.json { render json: task.to_json }
+    end
+	end
+
+	def complete
+		@task = Task.find(params[:id])
+		@task.completed = true
+		@task.save
+		respond_to do |format|
+      format.js
+    end
+	end
+
+	def restore
+		@task = Task.find(params[:id])
+		@task.completed = false
+		@task.save
+		respond_to do |format|
+      format.js
+    end
+	end
+
+	def destroy
+		@task = Task.find(params[:id])
+		@task.destroy
+		respond_to do |format|
+      format.js
+    end
+	end
+
 end

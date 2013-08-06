@@ -1,0 +1,13 @@
+var restored = $("[data-id=" + <%= @task.id %> + "]")
+restored.remove();
+$('#todo-items').append(restored);
+
+restored.find(".restore").text("complete").removeClass("restore").addClass("complete");
+var completeButton = completed.find(".complete");
+completeButton.click(function(){
+  console.log("Click.");
+  $.ajax({
+    url: "/complete/" + <%= @task.id %>, type: "put", dataType: "script"
+  });
+});
+

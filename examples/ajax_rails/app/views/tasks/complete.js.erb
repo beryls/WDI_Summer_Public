@@ -3,5 +3,16 @@
 // it's going to move the completed task to the completed list and hide the complete button
 
 // STEP 28: Use the HTML `data-id` attribute to find the task in the DOM
-
+var completed = $("[data-id=" + <%= @task.id %> + "]")
 // STEP 29: Move the task to the `completed-items` list
+completed.remove();
+$('#completed-items').append(completed);
+
+completed.find(".complete").text("restore").removeClass("complete").addClass("restore");
+var restoreButton = completed.find(".restore");
+restoreButton.click(function(){
+  console.log("Click.");
+  $.ajax({
+    url: "/restore/" + <%= @task.id %>, type: "put", dataType: "script"
+  });
+});
