@@ -8,7 +8,7 @@
 //= require jquery_ujs
 //= require_tree .
 
-// STEP 11: Make a function that takes a task JavaScript object as an argument
+// STEP 11: Note this function that takes a task JavaScript object as an argument
 // This function will generate a DOM version of the task javasctipt object it takes as an argument
 var appendTask = function(task){
 	// Created local variables that hold the jQuery selectors for:
